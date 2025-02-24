@@ -1,4 +1,7 @@
+package structures;
+
 public class Stack {
+
     Node head;
     int size, amount;
     
@@ -8,6 +11,7 @@ public class Stack {
     }
 
     public void push(String data) {
+
         Node temp = new Node(data);
      
         if(amount >= size) {
@@ -20,7 +24,9 @@ public class Stack {
     }
 
     public void peek() {
+
         Node current = head;
+
         if (head == null) {
             System.out.println("Não há elementos na pilha");
         } else {
@@ -29,7 +35,9 @@ public class Stack {
     }
     
     public void peekMonths() {
+
         Node current = head;
+
         if (head == null) {
             System.out.println("Não há elementos na pilha");
         } else {
@@ -43,7 +51,9 @@ public class Stack {
     }
     
     public void peekAll() {
+
         Node current = head;
+
         if (head == null) {
             System.out.println("Não há elementos na pilha");
         } else {
@@ -55,6 +65,7 @@ public class Stack {
     }
 
     public void pop() {
+
         if (head == null) {
             return;
         }
@@ -66,6 +77,7 @@ public class Stack {
     }
 
     public void isEmpty() {
+
         if (head == null) {
             System.out.println("A pilha está vazia");
         } else {
@@ -74,11 +86,11 @@ public class Stack {
     }
 
     public void isFull() {
+
         if (size == amount) {
             System.out.println("A pilha está cheia");
         } else {
             System.out.println("A pilha não está cheia");
         }
     }
-    
 }

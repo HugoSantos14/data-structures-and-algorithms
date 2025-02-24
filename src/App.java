@@ -1,13 +1,20 @@
+import structures.LinkedList;
+
 public class App {
     public static void main(String[] args) {
+
         LinkedList list = new LinkedList();
 
-        list.insertOnFinal("1");
-        list.insertOnFinal("2");
-        list.insertOnFinal("3");
-        list.insertOnFinal("4");
-        list.insertOnFinal("5");
+        list.add("1");   
+        list.add("2");   
+        list.add("3");
 
-        list.printList();
+        list.print();
+
+        list.remove("1");
+        System.out.println();
+
+        list.print();
+        System.out.println(list.getHead().getData());
     }
 }

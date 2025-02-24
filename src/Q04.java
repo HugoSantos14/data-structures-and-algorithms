@@ -1,5 +1,8 @@
+import structures.Stack;
+
 public class Q04 {
     public static void main(String[] args) {
+        
         Stack stack = new Stack(12);
 
         stack.push("Janeiro");
