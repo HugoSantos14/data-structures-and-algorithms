@@ -1,20 +1,20 @@
-package structures;
+package exercises.oldestBook;
 
-public class Node<E> {
-    
-    private E data;
+public class Node {
+
+    private Book data;
     private Node next;
-
-    public Node(E data) {
+    
+    public Node(Book data) {
         this.data = data;
-        this.next = null;
+        next = null;
     }
 
-    public E getData() {
+    public Book getData() {
         return data;
     }
 
-    public void setData(E data) {
+    public void setData(Book data) {
         this.data = data;
     }
 

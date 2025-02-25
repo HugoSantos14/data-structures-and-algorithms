@@ -1,18 +1,19 @@
 package structures;
 
-public class Stack {
+public class Stack<E> {
 
-    Node head;
-    int size, amount;
+    private Node<E> head;
+    private int size;
+    private int amount;
     
     public Stack(int size) {
         this.head = null;
         this.size = size;
     }
 
-    public void push(String data) {
+    public void push(E data) {
 
-        Node temp = new Node(data);
+        Node<E> temp = new Node<E>(data);
      
         if(amount >= size) {
             System.out.println("A pilha está cheia 2");
@@ -25,7 +26,7 @@ public class Stack {
 
     public void peek() {
 
-        Node current = head;
+        Node<E> current = head;
 
         if (head == null) {
             System.out.println("Não há elementos na pilha");
@@ -36,7 +37,7 @@ public class Stack {
     
     public void peekMonths() {
 
-        Node current = head;
+        Node<String> current = (Node<String>) head;
 
         if (head == null) {
             System.out.println("Não há elementos na pilha");
@@ -52,7 +53,7 @@ public class Stack {
     
     public void peekAll() {
 
-        Node current = head;
+        Node<E> current = head;
 
         if (head == null) {
             System.out.println("Não há elementos na pilha");
@@ -70,7 +71,7 @@ public class Stack {
             return;
         }
 
-        Node temp = head;
+        Node<E> temp = head;
         head = head.getNext();
         temp.setNext(null);
         amount--;

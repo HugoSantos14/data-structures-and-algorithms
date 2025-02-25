@@ -1,35 +1,35 @@
 package structures;
 
-public class LinkedList {
+public class LinkedList<E> {
     
-    Node head;
+    private Node<E> head;
     
     public LinkedList() {
     }
     
-    public Node getHead() {
+    public Node<E> getHead() {
         return head;
     }
 
-    public void setHead(Node head) {
+    public void setHead(Node<E> head) {
         this.head = head;
     }
 
-    public void add(String data) {
+    public void add(E data) {
 
-        Node newNode = new Node(data);
+        Node<E> newNode = new Node<E>(data);
         newNode.setNext(head);
         head = newNode;
     }
     
-    public void addOnFinal(String data) {
+    public void addOnFinal(E data) {
 
-        Node newNode = new Node(data);
+        Node<E> newNode = new Node<E>(data);
         
         if (head == null) {
             head = newNode;
         } else {
-            Node temp = head;
+            Node<E> temp = head;
             while (temp.getNext() != null) {
                 temp = temp.getNext();
             }
@@ -39,7 +39,7 @@ public class LinkedList {
     
     public void print() {
         
-        Node current = head;
+        Node<E> current = head;
         
         while (current != null) {
             System.out.println(current.getData());
@@ -55,17 +55,15 @@ public class LinkedList {
 
     public void PeekAll() {
 
-        Node current = head; //Vai receber a lista e sempre vai para baixo, onde não é para a cima é para baixo
-        while(current != null) {
-        
+        Node<E> current = head; //Vai receber a lista e sempre vai para baixo, onde não é para a cima é para baixo
+        while (current != null) {
             System.out.println(current.getData());
             current = current.getNext();
         }
     }
 
     public void Pop() {
-
-        if(head == null) {
+        if (head == null) {
             System.out.println("List is Empty");
         } else {
             head = head.getNext(); //Eu retiro a ligação com a antiga cabeça, fazendo a próxima ser a nova cabeça! Assim retirando a ligação dele a lista
@@ -73,7 +71,6 @@ public class LinkedList {
     }
 
     public void isEmpty() {
-
         if(head == null) {
             System.out.println("List is Empty");
         } else {
@@ -81,7 +78,7 @@ public class LinkedList {
         }
     }
     
-    public boolean remove(String data) {
+    public boolean remove(E data) {
 
         if (head == null) {
             System.out.println("Não há nós nessa lista.");
@@ -93,7 +90,7 @@ public class LinkedList {
             return true;
         }
         
-        Node temp = head;
+        Node<E> temp = head;
         while (temp.getNext() != null && temp.getNext().getData() != data) {
             temp = temp.getNext();
         }
