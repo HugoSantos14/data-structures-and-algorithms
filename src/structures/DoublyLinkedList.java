@@ -1,33 +1,31 @@
 package structures;
 
-public class DoublyLinkedList {
+public class DoublyLinkedList<E> {
     
-    private Node2 head;
-    private Node2 tail;
+    private Node<E> head;
+    private Node<E> tail;
 
     public DoublyLinkedList() {
-        this.head = null;
-        this.tail = null;
     }
 
-    public Node2 getHead() {
+    public Node<E> getHead() {
         return head;
     }
 
-    public void setHead(Node2 head) {
+    public void setHead(Node<E> head) {
         this.head = head;
     }
 
-    public Node2 getTail() {
+    public Node<E> getTail() {
         return tail;
     }
 
-    public void setTail(Node2 tail) {
+    public void setTail(Node<E> tail) {
         this.tail = tail;
     }
 
-    public void add(String data) {
-        Node2 temp = new Node2(data);
+    public void addFirst(E data) {
+        final Node<E> temp = new Node<E>(data);
         
         if (head == null) {
             head = temp;
@@ -39,8 +37,8 @@ public class DoublyLinkedList {
         }
     }
 
-    public void addOnFinal(String data) {
-        Node2 temp = new Node2(data);
+    public void addLast(E data) {
+        Node<E> temp = new Node<E>(data);
 
         if (tail == null) {
             head = temp;
@@ -53,20 +51,22 @@ public class DoublyLinkedList {
     }
 
     public void print() {
-        Node2 current = head;
+        Node<E> current = head;
 
         while (current != null) {
-            System.out.println(current.getData());
+            System.out.print(current.getData() + " ");
             current = current.getNext();
         }
+        System.out.println();
     }
 
     public void printByTail() {
-        Node2 current = tail;
+        Node<E> current = tail;
 
         while (current != null) {
-            System.out.println(current.getData());
+            System.out.print(current.getData() + " ");
             current = current.getPrev();
         }
+        System.out.println();
     }
 }

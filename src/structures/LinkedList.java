@@ -24,7 +24,7 @@ public class LinkedList<E> {
     
     public void addOnFinal(E data) {
 
-        Node<E> newNode = new Node<E>(data);
+        final Node<E> newNode = new Node<E>(data);
         
         if (head == null) {
             head = newNode;
