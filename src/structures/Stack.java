@@ -35,15 +35,16 @@ public class Stack<E> {
         }
     }
     
+    // Exercício
     public void peekMonths() {
 
-        Node<String> current = (Node<String>) head;
+        Node<E> current = head;
 
         if (head == null) {
             System.out.println("Não há elementos na pilha");
         } else {
             while (current != null) {
-                if (current.getData().length() > 5) {
+                if (current.getData().toString().length() > 5) {
                     System.out.println(current.getData());
                 }
                 current = current.getNext();

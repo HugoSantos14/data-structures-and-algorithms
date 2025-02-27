@@ -39,17 +39,17 @@ public class DoublyLinkedList<E> {
 
     public void addLast(E data) {
         Node<E> temp = new Node<E>(data);
-
+        
         if (tail == null) {
             head = temp;
             tail = temp;
         } else {
-            temp.setNext(temp);
             temp.setPrev(tail);
+            tail.setNext(temp);
             tail = temp;
         }
     }
-
+    
     public void print() {
         Node<E> current = head;
 
@@ -68,5 +68,112 @@ public class DoublyLinkedList<E> {
             current = current.getPrev();
         }
         System.out.println();
+    }
+
+    
+    public void deleteFirst() {
+        if (head == null) {
+            return;
+        }
+
+        if (head == tail) {
+            head = null;
+            tail = null;
+            return;
+        }
+
+        Node<E> temp = head;
+        head = head.getNext();
+        head.setPrev(null);
+        temp.setNext(null);
+    }
+    
+    public void deleteLast() {
+        if (tail == null) {
+            return;
+        }
+        
+        if (head == tail) {
+            head = null;
+            tail = null;
+            return;
+        }
+        
+        Node<E> temp = tail;
+        tail = tail.getPrev();
+        tail.setNext(null);
+        temp.setPrev(null);
+    }
+
+    public void delete(int index) {
+        if (head == null) {
+            return;
+        }
+
+        if (index == 0) {
+            deleteFirst();
+            return;
+        }
+        
+        Node<E> current = head;
+        int count = 0;
+        
+        //Navega até o nó na posição especificada.
+        while (current != null && count != index) {
+            current = current.getNext();
+            count++;
+        }
+        
+        // Verifica se a posição é válida.
+        if (current == null) {
+            System.err.println("Posição errada.");
+            return;
+        }
+        
+        if (current == tail) {
+            deleteLast();
+            return;
+        }
+        
+        deleteNode(current);
+    }
+    
+    private void deleteNode(Node<E> node) {
+        if (node == null) {
+            return;
+        }
+
+        // Ajusta os ponteiros para remover o nó da lista
+        if (node.getPrev() != null) {
+            node.getPrev().setNext(node.getNext()); // O nó anterior aponta para o próximo nó
+        }
+        if (node.getNext() != null) {
+            node.getNext().setPrev(node.getPrev()); // O próximo nó aponta para o nó anterior
+        }
+
+        // Desconecta o nó removido da lista
+        node.setPrev(null);
+        node.setNext(null);
+    }
+
+    // Exercício 1
+    public void deleteMonths() {
+        Node<E> current = head;
+
+        while (current != null) {
+            Node<E> nextNode = current.getNext();
+
+            if (current.getData().toString().length() < 5) {
+                if (current == head) {
+                    deleteFirst();
+                } else if (current == tail) {
+                    deleteLast();
+                } else {
+                    deleteNode(current);
+                }
+            }
+
+            current = nextNode;
+        }
     }
 }
