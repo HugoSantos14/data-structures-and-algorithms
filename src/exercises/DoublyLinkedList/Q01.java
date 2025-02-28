@@ -5,7 +5,7 @@ import structures.DoublyLinkedList;
 public class Q01 {
     public static void main(String[] args) {
         
-        DoublyLinkedList<String> list = new DoublyLinkedList<>();
+        final DoublyLinkedList<String> list = new DoublyLinkedList<>();
 
         list.addLast("January");
         list.addLast("February");

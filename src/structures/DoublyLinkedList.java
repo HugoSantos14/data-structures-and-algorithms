@@ -1,7 +1,13 @@
 package structures;
 
+import exercises.oldestBook.Book;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.function.Consumer;
+
 public class DoublyLinkedList<E> {
-    
+
     private Node<E> head;
     private Node<E> tail;
 
@@ -137,6 +143,22 @@ public class DoublyLinkedList<E> {
         
         deleteNode(current);
     }
+
+    public int size() {
+        if (head == null) {
+            return 0;
+        }
+
+        int size = 1;
+        Node<E> current = head;
+
+        while (current != null) {
+            size++;
+            current = current.getNext();
+        }
+
+        return size;
+    }
     
     private void deleteNode(Node<E> node) {
         if (node == null) {
@@ -175,5 +197,30 @@ public class DoublyLinkedList<E> {
 
             current = nextNode;
         }
+    }
+
+    // Exercício 2 (incompleto)
+    public int sumElements() {
+        if (head == null) {
+            return 0;
+        }
+        if (!(head.getData() instanceof Integer)) {
+            return 0;
+        }
+
+        int sum = 0;
+        Node<E> current = head;
+
+        while (current != null) {
+            sum += (int) current.getData();
+            current = current.getNext();
+        }
+
+        return sum;
+    }
+
+    // Exercício 3
+    public void bubbleSortDates() {
+
     }
 }
