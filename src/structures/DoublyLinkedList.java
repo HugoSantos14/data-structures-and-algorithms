@@ -1,11 +1,5 @@
 package structures;
 
-import exercises.oldestBook.Book;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.function.Consumer;
-
 public class DoublyLinkedList<E> {
 
     private Node<E> head;

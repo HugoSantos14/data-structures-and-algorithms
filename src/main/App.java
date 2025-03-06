@@ -1,17 +1,17 @@
 package main;
 
-import structures.DoublyLinkedList;
+import structures.Queue;
 
 public class App {
     public static void main(String[] args) {
 
-        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
+        Queue<Integer> queue = new Queue<>();
 
-        list.addFirst(1);
-        list.addFirst(2);
-        list.addFirst(3);
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+        queue.removeHead();
 
-        list.print();
-        list.printByTail();
+        System.out.println(queue);
     }
 }
