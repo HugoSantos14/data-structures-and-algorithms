@@ -1,17 +1,24 @@
 package main;
 
+import structures.DoublyLinkedList;
 import structures.Queue;
 
 public class App {
     public static void main(String[] args) {
 
-        Queue<Integer> queue = new Queue<>();
+        try {
+            DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
 
-        queue.add(1);
-        queue.add(2);
-        queue.add(3);
-        queue.removeHead();
+            list.addFirst(1);
+            list.addFirst(2);
+            list.addFirst(3);
+            list.addFirst(4);
+            list.addFirst(5);
+            list.add(6, -1);
 
-        System.out.println(queue);
+            list.printByTail();
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("Erro: " + e.getMessage());
+        }
     }
 }

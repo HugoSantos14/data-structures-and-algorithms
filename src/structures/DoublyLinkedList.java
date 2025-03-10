@@ -4,6 +4,7 @@ public class DoublyLinkedList<E> {
 
     private Node<E> head;
     private Node<E> tail;
+    private int size;
 
     public DoublyLinkedList() {
     }
@@ -47,6 +48,33 @@ public class DoublyLinkedList<E> {
             temp.setPrev(tail);
             tail.setNext(temp);
             tail = temp;
+        }
+    }
+
+    public void add(E data, int index) {
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("Índice não encontrado: " + index);
+        }
+        if (index == 0) {
+            addFirst(data);
+            return;
+        }
+
+        Node<E> current = head;
+        int i = 1;
+        while (current != null && i < index) {
+            current = current.getNext();
+            i++;
+        }
+
+        if (current == null) {
+            addLast(data);
+        } else {
+            final Node<E> newNode = new Node<>(data);
+            newNode.setNext(current);
+            newNode.setPrev(current.getPrev());
+            current.getPrev().setNext(newNode);
+            current.setPrev(newNode);
         }
     }
     
@@ -114,7 +142,7 @@ public class DoublyLinkedList<E> {
             deleteFirst();
             return;
         }
-        
+
         Node<E> current = head;
         int count = 0;
         
