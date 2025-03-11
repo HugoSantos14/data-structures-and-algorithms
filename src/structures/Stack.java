@@ -30,12 +30,35 @@ public class Stack<E> {
         this.size = size;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
     public boolean isEmpty() {
         return size == 0;
     }
 
     public boolean isFull() {
         return size >= capacity;
+    }
+
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return "Pilha vazia";
+        }
+
+        StringBuilder result = new StringBuilder();
+        Node<E> current = head;
+        while (current != null) {
+            result.append(current.getData());
+            if (current.getNext() != null) {
+                current = current.getNext();
+            }
+            current = current.getNext();
+        }
+
+        return result.toString();
     }
 
     public void push(E data) {
@@ -51,48 +74,6 @@ public class Stack<E> {
         }
     }
 
-    public void peek() {
-
-        Node<E> current = head;
-
-        if (head == null) {
-            System.out.println("Não há elementos na pilha");
-        } else {
-            System.out.println(current.getData());
-        }
-    }
-    
-    // Exercício
-    public void peekMonths() {
-
-        Node<E> current = head;
-
-        if (head == null) {
-            System.out.println("Não há elementos na pilha");
-        } else {
-            while (current != null) {
-                if (current.getData().toString().length() > 5) {
-                    System.out.println(current.getData());
-                }
-                current = current.getNext();
-            }
-        }
-    }
-    
-    public void peekAll() {
-
-        Node<E> current = head;
-
-        if (head == null) {
-            System.out.println("Não há elementos na pilha");
-        } else {
-            while (current != null) {
-                System.out.println(current.getData());
-                current = current.getNext();
-            }
-        }
-    }
-
     public void pop() {
         if (isEmpty()) {
             return;
@@ -102,5 +83,12 @@ public class Stack<E> {
         head = head.getNext();
         temp.setNext(null);
         size--;
+    }
+
+    public Node<E> top() {
+        if (isEmpty()) {
+            return null;
+        }
+        return head;
     }
 }

@@ -148,7 +148,7 @@ public class DoublyLinkedList<E> {
             tail = null;
             return;
         }
-        
+
         final Node<E> temp = tail;
         tail = tail.getPrev();
         tail.setNext(null);
@@ -201,26 +201,5 @@ public class DoublyLinkedList<E> {
         node.setPrev(null);
         node.setNext(null);
         size--;
-    }
-
-    // Exercício 1
-    public void deleteMonths() {
-        Node<E> current = head;
-
-        while (current != null) {
-            Node<E> nextNode = current.getNext();
-
-            if (current.getData().toString().length() < 5) {
-                if (current == head) {
-                    deleteFirst();
-                } else if (current == tail) {
-                    deleteLast();
-                } else {
-                    deleteNode(current);
-                }
-            }
-
-            current = nextNode;
-        }
     }
 }

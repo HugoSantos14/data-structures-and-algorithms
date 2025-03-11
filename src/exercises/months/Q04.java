@@ -1,8 +1,26 @@
 package exercises.months;
 
+import structures.Node;
 import structures.Stack;
 
 public class Q04 {
+
+    private static <E> void peekMonths(Stack<E> stack) {
+
+        Node<E> current = stack.getHead();
+
+        if (stack.isEmpty()) {
+            System.out.println("Não há elementos na pilha");
+        } else {
+            while (current != null) {
+                if (current.getData().toString().length() > 5) {
+                    System.out.println(current.getData());
+                }
+                current = current.getNext();
+            }
+        }
+    }
+
     public static void main(String[] args) {
         
         Stack<String> stack = new Stack<>(12);
@@ -20,6 +38,6 @@ public class Q04 {
         stack.push("Novembro");
         stack.push("Dezembro");
 
-        stack.peekMonths();
+        peekMonths(stack);
     }
 }

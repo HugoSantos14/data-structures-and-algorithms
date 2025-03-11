@@ -14,7 +14,7 @@ public class App {
             list.addLast(4);
             list.addLast(5);
 
-            list.delete(4);
+            list.deleteFirst();
 
             System.out.println(list);
 
