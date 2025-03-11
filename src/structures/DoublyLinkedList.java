@@ -25,30 +25,61 @@ public class DoublyLinkedList<E> {
         this.tail = tail;
     }
 
+    public int size() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public String toString() {
+        if (head == null) {
+            return "Lista vazia";
+        }
+
+        StringBuilder result = new StringBuilder();
+        Node<E> current = head;
+        while (current != null) {
+            result.append(current.getData());
+            if (current.getNext() != null) {
+                result.append(", ");
+            }
+            current = current.getNext();
+        }
+
+        return result.toString();
+    }
+
     public void addFirst(E data) {
         final Node<E> temp = new Node<E>(data);
         
-        if (head == null) {
-            head = temp;
+        if (isEmpty()) {
             tail = temp;
         } else {
             temp.setNext(head);
             head.setPrev(temp);
-            head = temp;
         }
+        head = temp;
+        size++;
     }
 
     public void addLast(E data) {
         Node<E> temp = new Node<E>(data);
         
-        if (tail == null) {
+        if (isEmpty()) {
             head = temp;
-            tail = temp;
         } else {
             temp.setPrev(tail);
             tail.setNext(temp);
-            tail = temp;
         }
+        tail = temp;
+        size++;
     }
 
     public void add(E data, int index) {
@@ -75,17 +106,8 @@ public class DoublyLinkedList<E> {
             newNode.setPrev(current.getPrev());
             current.getPrev().setNext(newNode);
             current.setPrev(newNode);
+            size++;
         }
-    }
-    
-    public void print() {
-        Node<E> current = head;
-
-        while (current != null) {
-            System.out.print(current.getData() + " ");
-            current = current.getNext();
-        }
-        System.out.println();
     }
 
     public void printByTail() {
@@ -97,10 +119,9 @@ public class DoublyLinkedList<E> {
         }
         System.out.println();
     }
-
     
     public void deleteFirst() {
-        if (head == null) {
+        if (isEmpty()) {
             return;
         }
 
@@ -114,10 +135,11 @@ public class DoublyLinkedList<E> {
         head = head.getNext();
         head.setPrev(null);
         temp.setNext(null);
+        size--;
     }
     
     public void deleteLast() {
-        if (tail == null) {
+        if (isEmpty()) {
             return;
         }
         
@@ -131,10 +153,11 @@ public class DoublyLinkedList<E> {
         tail = tail.getPrev();
         tail.setNext(null);
         temp.setPrev(null);
+        size--;
     }
 
     public void delete(int index) {
-        if (head == null) {
+        if (isEmpty()) {
             return;
         }
 
@@ -165,22 +188,6 @@ public class DoublyLinkedList<E> {
         
         deleteNode(current);
     }
-
-    public int size() {
-        if (head == null) {
-            return 0;
-        }
-
-        int size = 1;
-        Node<E> current = head;
-
-        while (current != null) {
-            size++;
-            current = current.getNext();
-        }
-
-        return size;
-    }
     
     private void deleteNode(Node<E> node) {
         if (node == null) {
@@ -198,6 +205,7 @@ public class DoublyLinkedList<E> {
         // Desconecta o nó removido da lista
         node.setPrev(null);
         node.setNext(null);
+        size--;
     }
 
     // Exercício 1
