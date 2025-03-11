@@ -5,8 +5,7 @@ public class Queue<E> {
     private Node<E> head;
     private Node<E> tail;
     private int size;
-    private int capacity;
-    private boolean full;
+    private final int capacity;
 
     public Queue() {
         capacity = Integer.MAX_VALUE;
@@ -16,7 +15,7 @@ public class Queue<E> {
         this.capacity = capacity;
     }
 
-    public Node<E> peek() {
+    public Node<E> getHead() {
         return head;
     }
 
@@ -44,17 +43,8 @@ public class Queue<E> {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
     public boolean isFull() {
-        full = size >= capacity;
-        return full;
-    }
-
-    public void setFull(boolean full) {
-        this.full = full;
+        return size >= capacity;
     }
 
     public boolean isEmpty() {
@@ -90,11 +80,10 @@ public class Queue<E> {
 
         if (isEmpty()) {
             head = newNode;
-            tail = newNode;
         } else {
             tail.setNext(newNode);
-            tail = newNode;
         }
+        tail = newNode;
         size++;
     }
 

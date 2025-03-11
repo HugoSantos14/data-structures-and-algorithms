@@ -41,8 +41,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Título: " + title + "\n" +
-                "Autor: " + author + "\n" +
-                "Data de publicação: " + publicationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return title;
     }
 }

@@ -4,23 +4,50 @@ public class Stack<E> {
 
     private Node<E> head;
     private int size;
-    private int amount;
-    
-    public Stack(int size) {
-        this.head = null;
+    private final int capacity;
+
+    public Stack() {
+        capacity = Integer.MAX_VALUE;
+    }
+
+    public Stack(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public Node<E> getHead() {
+        return head;
+    }
+
+    public void setHead(Node<E> head) {
+        this.head = head;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public void setSize(int size) {
         this.size = size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public boolean isFull() {
+        return size >= capacity;
     }
 
     public void push(E data) {
 
         Node<E> temp = new Node<E>(data);
      
-        if(amount >= size) {
+        if (isFull()) {
             System.out.println("A pilha está cheia 2");
         } else {
             temp.setNext(temp);
             head = temp;
-            amount++;
+            size++;
         }
     }
 
@@ -67,32 +94,13 @@ public class Stack<E> {
     }
 
     public void pop() {
-
-        if (head == null) {
+        if (isEmpty()) {
             return;
         }
 
         Node<E> temp = head;
         head = head.getNext();
         temp.setNext(null);
-        amount--;
-    }
-
-    public void isEmpty() {
-
-        if (head == null) {
-            System.out.println("A pilha está vazia");
-        } else {
-            System.out.println("A pilha não está vazia");
-        }
-    }
-
-    public void isFull() {
-
-        if (size == amount) {
-            System.out.println("A pilha está cheia");
-        } else {
-            System.out.println("A pilha não está cheia");
-        }
+        size--;
     }
 }

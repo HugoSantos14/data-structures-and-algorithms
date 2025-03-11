@@ -5,7 +5,7 @@ import structures.Stack;
 public class Q04 {
     public static void main(String[] args) {
         
-        Stack<String> stack = new Stack(12);
+        Stack<String> stack = new Stack<>(12);
 
         stack.push("Janeiro");
         stack.push("Fevereiro");

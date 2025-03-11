@@ -57,57 +57,59 @@ public class DoublyLinkedList<E> {
     }
 
     public void addFirst(E data) {
-        final Node<E> temp = new Node<E>(data);
+        final Node<E> newNode = new Node<E>(data);
         
         if (isEmpty()) {
-            tail = temp;
+            tail = newNode;
         } else {
-            temp.setNext(head);
-            head.setPrev(temp);
+            newNode.setNext(head);
+            head.setPrev(newNode);
         }
-        head = temp;
+        head = newNode;
         size++;
     }
 
     public void addLast(E data) {
-        Node<E> temp = new Node<E>(data);
+        final Node<E> newNode = new Node<E>(data);
         
         if (isEmpty()) {
-            head = temp;
+            head = newNode;
         } else {
-            temp.setPrev(tail);
-            tail.setNext(temp);
+            newNode.setPrev(tail);
+            tail.setNext(newNode);
         }
-        tail = temp;
+        tail = newNode;
         size++;
     }
 
     public void add(E data, int index) {
-        if (index < 0) {
-            throw new IndexOutOfBoundsException("Índice não encontrado: " + index);
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Índice " + index + " não encontrado");
         }
         if (index == 0) {
             addFirst(data);
             return;
         }
+        if (index == size) {
+            addLast(data);
+            return;
+        }
 
         Node<E> current = head;
-        int i = 1;
-        while (current != null && i < index) {
+        int count = 0;
+
+        //Navega até o nó na posição especificada.
+        while (current != null && count != index) {
             current = current.getNext();
-            i++;
+            count++;
         }
 
-        if (current == null) {
-            addLast(data);
-        } else {
-            final Node<E> newNode = new Node<>(data);
-            newNode.setNext(current);
-            newNode.setPrev(current.getPrev());
-            current.getPrev().setNext(newNode);
-            current.setPrev(newNode);
-            size++;
-        }
+        final Node<E> newNode = new Node<>(data);
+        newNode.setNext(current); // O próximo do novo nó é o nó atual
+        newNode.setPrev(current.getPrev()); // O anterior do novo nó é o anterior do nó atual
+        current.getPrev().setNext(newNode); // O próximo do nó anterior ao atual é o novo nó
+        current.setPrev(newNode); // O anterior do nó atual é o novo nó
+        size++;
     }
 
     public void printByTail() {
@@ -124,14 +126,13 @@ public class DoublyLinkedList<E> {
         if (isEmpty()) {
             return;
         }
-
-        if (head == tail) {
+        if (size == 1) {
             head = null;
             tail = null;
             return;
         }
 
-        Node<E> temp = head;
+        final Node<E> temp = head;
         head = head.getNext();
         head.setPrev(null);
         temp.setNext(null);
@@ -142,14 +143,13 @@ public class DoublyLinkedList<E> {
         if (isEmpty()) {
             return;
         }
-        
-        if (head == tail) {
+        if (size == 1) {
             head = null;
             tail = null;
             return;
         }
         
-        Node<E> temp = tail;
+        final Node<E> temp = tail;
         tail = tail.getPrev();
         tail.setNext(null);
         temp.setPrev(null);
@@ -157,12 +157,18 @@ public class DoublyLinkedList<E> {
     }
 
     public void delete(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Índice " + index + " não encontrado");
+        }
         if (isEmpty()) {
             return;
         }
-
         if (index == 0) {
             deleteFirst();
+            return;
+        }
+        if (index == size - 1) {
+            deleteLast();
             return;
         }
 
@@ -173,17 +179,6 @@ public class DoublyLinkedList<E> {
         while (current != null && count != index) {
             current = current.getNext();
             count++;
-        }
-        
-        // Verifica se a posição é válida.
-        if (current == null) {
-            System.err.println("Posição errada.");
-            return;
-        }
-        
-        if (current == tail) {
-            deleteLast();
-            return;
         }
         
         deleteNode(current);
@@ -227,30 +222,5 @@ public class DoublyLinkedList<E> {
 
             current = nextNode;
         }
-    }
-
-    // Exercício 2 (incompleto)
-    public int sumElements() {
-        if (head == null) {
-            return 0;
-        }
-        if (!(head.getData() instanceof Integer)) {
-            return 0;
-        }
-
-        int sum = 0;
-        Node<E> current = head;
-
-        while (current != null) {
-            sum += (int) current.getData();
-            current = current.getNext();
-        }
-
-        return sum;
-    }
-
-    // Exercício 3
-    public void bubbleSortDates() {
-
     }
 }

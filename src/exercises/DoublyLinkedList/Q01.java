@@ -21,6 +21,6 @@ public class Q01 {
         list.addLast("December");
 
         list.deleteMonths();
-        list.print();
+        System.out.println(list);
     }
 }
