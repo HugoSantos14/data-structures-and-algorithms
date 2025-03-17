@@ -1,25 +1,23 @@
 package main;
 
+import exceptions.StackException;
 import structures.DoublyLinkedList;
 import structures.Queue;
+import structures.Stack;
 
 public class App {
     public static void main(String[] args) {
-        try {
-            final DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
 
-            list.addLast(1);
-            list.addLast(2);
-            list.addLast(3);
-            list.addLast(4);
-            list.addLast(5);
+        Stack<Integer> stack = new Stack<>();
 
-            list.deleteFirst();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(4);
+        stack.push(5);
 
-            System.out.println(list);
+        stack.pop(3);
 
-        } catch (IndexOutOfBoundsException e) {
-            System.err.println("Erro: " + e.getMessage());
-        }
+        System.out.println(stack);
     }
 }
