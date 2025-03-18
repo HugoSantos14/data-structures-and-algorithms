@@ -112,10 +112,10 @@ public class Stack<E> {
         return removedData;
     }
 
-    public Node<E> peek() {
+    public E peek() {
         if (isEmpty()) {
             return null;
         }
-        return head;
+        return head.getData();
     }
 }

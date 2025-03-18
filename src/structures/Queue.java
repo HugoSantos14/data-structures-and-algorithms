@@ -1,5 +1,7 @@
 package structures;
 
+import exceptions.QueueException;
+
 public class Queue<E> {
 
     private Node<E> head;
@@ -43,12 +45,12 @@ public class Queue<E> {
         return capacity;
     }
 
-    public boolean isFull() {
-        return size >= capacity;
-    }
-
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    public boolean isFull() {
+        return size >= capacity;
     }
 
     @Override
@@ -73,11 +75,10 @@ public class Queue<E> {
 
     public void add(E data) {
         if (isFull()) {
-            return;
+            throw new QueueException("A fila está cheia");
         }
 
         final Node<E> newNode = new Node<>(data);
-
         if (isEmpty()) {
             head = newNode;
         } else {
@@ -87,16 +88,19 @@ public class Queue<E> {
         size++;
     }
 
-    public void removeHead() {
+    public E remove() {
         if (isEmpty()) {
-            return;
+            throw new QueueException("A fila está vazia");
         }
 
+        E removedData = head.getData();
         head = head.getNext();
         size--;
 
         if (isEmpty()) {
             tail = null;
         }
+
+        return removedData;
     }
 }
