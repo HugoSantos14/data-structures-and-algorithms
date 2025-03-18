@@ -19,5 +19,6 @@ public class App {
         stack.pop(3);
 
         System.out.println(stack);
+        System.out.println(stack.size());
     }
 }

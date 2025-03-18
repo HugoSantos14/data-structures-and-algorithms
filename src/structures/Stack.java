@@ -74,39 +74,42 @@ public class Stack<E> {
         size++;
     }
 
-    public void pop() {
+    public E pop() {
         if (isEmpty()) {
             throw new StackException("A pilha está vazia");
         }
 
-        final Node<E> current = head;
+        final Node<E> removedData = head;
         head = head.getNext();
+        removedData.setNext(null);
         size--;
+        return removedData.getData();
     }
 
-    public void pop(E data) {
+    public E pop(E data) {
         if (isEmpty()) {
             throw new StackException("A pilha está vazia");
-        }
-        if (head.getData() == data) {
-            pop();
-            return;
         }
 
         final Stack<E> temp = new Stack<>(capacity);
-        Node<E> current = head;
-        while (current.getData() != data) {
-            temp.push(head.getData());
-            pop();
-            current = current.getNext();
+        while (!isEmpty() && !head.getData().equals(data)) {
+            temp.push(pop());
         }
-        pop();
+
+        if (isEmpty()) {
+            while (!temp.isEmpty()) {
+                push(temp.pop());
+            }
+            throw new StackException("Elemento não encontrado na pilha");
+        }
+
+        E removedData = pop();
 
         while (!temp.isEmpty()) {
-            push(temp.getHead().getData());
-            temp.pop();
+            push(temp.pop());
         }
-        size--;
+
+        return removedData;
     }
 
     public Node<E> peek() {
