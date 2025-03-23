@@ -1,23 +1,26 @@
 package main;
 
-import exceptions.StackException;
-import structures.DoublyLinkedList;
-import structures.Queue;
-import structures.Stack;
+import exercises.oldestBook.Book;
+import structures.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class App {
     public static void main(String[] args) {
 
-        Queue<Integer> queue = new Queue<>();
+        Map<Book, Double> stock = new HashMap<>();
 
-        queue.add(1);
-        queue.add(2);
-//        queue.add(3);
-//        queue.add(4);
-//        queue.add(5);
+        Book b1 = new Book("Book 1", "Author 1");
+        Book b2 = new Book("Book 2", "Author 2");
+        Book b3 = new Book("Book 3", "Author 3");
 
-        System.out.println(queue.remove());
-        System.out.println(queue.getHead());
-        System.out.println(queue.getTail());
+        stock.put(b1, 100.0);
+        stock.put(b2, 200.0);
+        stock.put(b3, 150.0);
+
+        Book b4 = new Book("Book 1", "Author 1");
+
+        System.out.println("Contais 'b4' key: " + stock.containsKey(b4));
     }
 }

@@ -103,4 +103,11 @@ public class Queue<E> {
 
         return removedData;
     }
+
+    public E peek() {
+        if (isEmpty()) {
+            throw new QueueException("Fila vazia");
+        }
+        return head.getData();
+    }
 }

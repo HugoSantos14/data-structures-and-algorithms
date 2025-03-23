@@ -7,27 +7,30 @@ package exercises.Stack;
 import structures.Node;
 import structures.Stack;
 
-// INCOMPLETO
 public class Q02 {
 
     private static Stack<Character> alphabeticOrder(Stack<Character> stack) {
         final Stack<Character> ordered = new Stack<>(stack.getCapacity());
         final Stack<Character> temp = new Stack<>(stack.getCapacity());
-        Node<Character> current = stack.getHead();
 
-        for (int i = 0; i < stack.size(); i++) {
+        while (!stack.isEmpty()) {
+            Character minChar = stack.peek();
             while (!stack.isEmpty()) {
-                if (current.getData().compareTo(stack.peek()) < 0) {
-                    current = stack.getHead();
+                Character current = stack.pop();
+                if (current.compareTo(minChar) < 0) {
+                    minChar = current;
                 }
-                temp.push(stack.pop());
+                temp.push(current);
             }
 
+            ordered.push(minChar);
+            boolean removed = false;
             while (!temp.isEmpty()) {
-                if (current.getData().equals(temp.peek())) {
-                    ordered.push(temp.pop());
+                Character current = temp.pop();
+                if (current.equals(minChar) && !removed) {
+                    removed = true;
                 } else {
-                    stack.push(temp.pop());
+                    stack.push(current);
                 }
             }
         }
@@ -38,12 +41,14 @@ public class Q02 {
     public static void main(String[] args) {
 
         Stack<Character> stack = new Stack<>();
+
         stack.push('e');
         stack.push('c');
         stack.push('d');
         stack.push('a');
         stack.push('b');
 
+        System.out.println(stack);
         System.out.println(alphabeticOrder(stack));
     }
 }
