@@ -1,6 +1,4 @@
-package structures;
-
-import exceptions.StackException;
+package datastructures;
 
 public class Stack<E> {
 
@@ -51,13 +49,17 @@ public class Stack<E> {
         }
 
         StringBuilder result = new StringBuilder();
-        Node<E> current = head;
-        while (current != null) {
-            result.append(current.getData());
-            if (current.getNext() != null) {
+        final Stack<E> temp = new Stack<>(capacity);
+        while (!isEmpty()) {
+            result.append(peek());
+            if (head.getNext() != null) {
                 result.append(", ");
             }
-            current = current.getNext();
+            temp.push(pop());
+        }
+
+        while (!temp.isEmpty()) {
+            push(temp.pop());
         }
 
         return result.toString();
@@ -65,7 +67,7 @@ public class Stack<E> {
 
     public void push(E data) {
         if (isFull()) {
-            throw new StackException("A pilha está cheia");
+            throw new IndexOutOfBoundsException("A pilha está cheia");
         }
 
         final Node<E> newNode = new Node<>(data);
@@ -76,7 +78,7 @@ public class Stack<E> {
 
     public E pop() {
         if (isEmpty()) {
-            throw new StackException("A pilha está vazia");
+            throw new IndexOutOfBoundsException("A pilha está vazia");
         }
 
         final Node<E> removedData = head;
@@ -88,7 +90,7 @@ public class Stack<E> {
 
     public E pop(E data) {
         if (isEmpty()) {
-            throw new StackException("A pilha está vazia");
+            throw new IndexOutOfBoundsException("A pilha está vazia");
         }
 
         final Stack<E> temp = new Stack<>(capacity);
@@ -100,7 +102,7 @@ public class Stack<E> {
             while (!temp.isEmpty()) {
                 push(temp.pop());
             }
-            throw new StackException("Elemento não encontrado na pilha");
+            throw new IndexOutOfBoundsException("Elemento não encontrado na pilha");
         }
 
         E removedData = pop();

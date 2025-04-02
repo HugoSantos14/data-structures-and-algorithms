@@ -1,7 +1,4 @@
-package main;
-
 import exercises.oldestBook.Book;
-import structures.*;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -3,7 +3,7 @@ package exercises.Queue;
 // Implemente um método em Java que receba uma fila de inteiros e
 // retorne a média dos elementos da fila.
 
-import structures.Queue;
+import datastructures.Queue;
 
 public class Q02 {
 

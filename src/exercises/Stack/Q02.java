@@ -4,8 +4,7 @@ package exercises.Stack;
 // caracteres e retorne uma nova pilha contendo os caracteres em
 // ordem alfabética crescente.
 
-import structures.Node;
-import structures.Stack;
+import datastructures.Stack;
 
 public class Q02 {
 

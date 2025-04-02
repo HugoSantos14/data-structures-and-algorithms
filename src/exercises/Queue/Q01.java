@@ -4,7 +4,7 @@ package exercises.Queue;
 // retorne uma fila contendo apenas os números ímpares da fila
 // original, na mesma ordem.
 
-import structures.Queue;
+import datastructures.Queue;
 
 public class Q01 {
 

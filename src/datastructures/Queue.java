@@ -1,20 +1,12 @@
-package structures;
-
-import exceptions.QueueException;
+package datastructures;
 
 public class Queue<E> {
 
     private Node<E> head;
     private Node<E> tail;
     private int size;
-    private final int capacity;
 
     public Queue() {
-        capacity = Integer.MAX_VALUE;
-    }
-
-    public Queue(int capacity) {
-        this.capacity = capacity;
     }
 
     public Node<E> getHead() {
@@ -41,16 +33,8 @@ public class Queue<E> {
         this.size = size;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
     public boolean isEmpty() {
         return size == 0;
-    }
-
-    public boolean isFull() {
-        return size >= capacity;
     }
 
     @Override
@@ -61,7 +45,6 @@ public class Queue<E> {
 
         StringBuilder result = new StringBuilder();
         Node<E> current = head;
-
         while (current != null) {
             result.append(current.getData());
             if (current.getNext() != null) {
@@ -74,10 +57,6 @@ public class Queue<E> {
     }
 
     public void add(E data) {
-        if (isFull()) {
-            throw new QueueException("A fila está cheia");
-        }
-
         final Node<E> newNode = new Node<>(data);
         if (isEmpty()) {
             head = newNode;
@@ -90,7 +69,7 @@ public class Queue<E> {
 
     public E remove() {
         if (isEmpty()) {
-            throw new QueueException("A fila está vazia");
+            throw new IndexOutOfBoundsException("A fila está vazia");
         }
 
         E removedData = head.getData();
@@ -106,7 +85,7 @@ public class Queue<E> {
 
     public E peek() {
         if (isEmpty()) {
-            throw new QueueException("Fila vazia");
+            throw new IndexOutOfBoundsException("Fila vazia");
         }
         return head.getData();
     }

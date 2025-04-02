@@ -1,7 +1,7 @@
 package exercises.months;
 
-import structures.Node;
-import structures.Stack;
+import datastructures.Node;
+import datastructures.Stack;
 
 public class Q04 {
 

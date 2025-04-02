@@ -1,12 +1,12 @@
-package structures;
+package datastructures;
 
-public class DoublyLinkedList<E> {
+public class LinkedList<E> {
 
     private Node<E> head;
     private Node<E> tail;
     private int size;
 
-    public DoublyLinkedList() {
+    public LinkedList() {
     }
 
     public Node<E> getHead() {
@@ -69,7 +69,7 @@ public class DoublyLinkedList<E> {
         size++;
     }
 
-    public void addLast(E data) {
+    public void add(E data) {
         final Node<E> newNode = new Node<E>(data);
         
         if (isEmpty()) {
@@ -83,43 +83,28 @@ public class DoublyLinkedList<E> {
     }
 
     public void add(E data, int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index > size+1) {
             throw new IndexOutOfBoundsException("Índice " + index + " não encontrado");
-        }
-        if (index == 0) {
+        } else if (index == 0) {
             addFirst(data);
-            return;
+        } else if (index == size+1) {
+            add(data);
+        } else {
+            Node<E> current = head;
+            int count = 0;
+            //Navega até o nó na posição especificada.
+            while (current != null && count < index) {
+                current = current.getNext();
+                count++;
+            }
+
+            final Node<E> newNode = new Node<>(data);
+            newNode.setNext(current); // O próximo do novo nó é o nó atual
+            newNode.setPrev(current.getPrev()); // O anterior do novo nó é o anterior do nó atual
+            current.getPrev().setNext(newNode); // O próximo do nó anterior ao atual é o novo nó
+            current.setPrev(newNode); // O anterior do nó atual é o novo nó
+            size++;
         }
-        if (index == size) {
-            addLast(data);
-            return;
-        }
-
-        Node<E> current = head;
-        int count = 0;
-
-        //Navega até o nó na posição especificada.
-        while (current != null && count != index) {
-            current = current.getNext();
-            count++;
-        }
-
-        final Node<E> newNode = new Node<>(data);
-        newNode.setNext(current); // O próximo do novo nó é o nó atual
-        newNode.setPrev(current.getPrev()); // O anterior do novo nó é o anterior do nó atual
-        current.getPrev().setNext(newNode); // O próximo do nó anterior ao atual é o novo nó
-        current.setPrev(newNode); // O anterior do nó atual é o novo nó
-        size++;
-    }
-
-    public void printByTail() {
-        Node<E> current = tail;
-
-        while (current != null) {
-            System.out.print(current.getData() + " ");
-            current = current.getPrev();
-        }
-        System.out.println();
     }
     
     public void deleteFirst() {

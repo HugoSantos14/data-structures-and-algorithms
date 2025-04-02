@@ -1,15 +1,15 @@
 package exercises.DoublyLinkedList;
 
 import exercises.oldestBook.Book;
-import structures.DoublyLinkedList;
-import structures.Node;
+import datastructures.LinkedList;
+import datastructures.Node;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Q03 {
 
-    private static void bubbleSort(DoublyLinkedList<Book> list) {
+    private static void bubbleSort(LinkedList<Book> list) {
         final int size = list.size();
         Node<Book> current = list.getHead();
         Node<Book> next = current.getNext();
@@ -26,7 +26,7 @@ public class Q03 {
 
     public static void main(String[] args) {
 
-        final DoublyLinkedList<Book> books = new DoublyLinkedList<>();
+        final LinkedList<Book> books = new LinkedList<>();
         final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         books.addFirst(new Book("livro1", "autor1", LocalDate.parse("02/08/2021", dtf)));

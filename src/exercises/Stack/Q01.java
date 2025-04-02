@@ -4,7 +4,7 @@ package exercises.Stack;
 // e retorne uma nova pilha contendo os elementos da pilha original
 // em ordem reversa.
 
-import structures.Stack;
+import datastructures.Stack;
 
 public class Q01 {
 

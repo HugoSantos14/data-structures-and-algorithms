@@ -1,11 +1,11 @@
 package exercises.DoublyLinkedList;
 
-import structures.DoublyLinkedList;
-import structures.Node;
+import datastructures.LinkedList;
+import datastructures.Node;
 
 public class Q01 {
 
-    private static <E> void deleteMonths(DoublyLinkedList<E> list) {
+    private static <E> void deleteMonths(LinkedList<E> list) {
         Node<E> current = list.getHead();
 
         while (current != null) {
@@ -33,20 +33,20 @@ public class Q01 {
 
     public static void main(String[] args) {
         
-        final DoublyLinkedList<String> list = new DoublyLinkedList<>();
+        final LinkedList<String> list = new LinkedList<>();
 
-        list.addLast("January");
-        list.addLast("February");
-        list.addLast("March");
-        list.addLast("April");
-        list.addLast("May");
-        list.addLast("June");
-        list.addLast("July");
-        list.addLast("August");
-        list.addLast("September");
-        list.addLast("October");
-        list.addLast("November");
-        list.addLast("December");
+        list.add("January");
+        list.add("February");
+        list.add("March");
+        list.add("April");
+        list.add("May");
+        list.add("June");
+        list.add("July");
+        list.add("August");
+        list.add("September");
+        list.add("October");
+        list.add("November");
+        list.add("December");
 
         deleteMonths(list);
         System.out.println(list);
