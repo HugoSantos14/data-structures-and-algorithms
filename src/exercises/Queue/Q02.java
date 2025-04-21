@@ -8,16 +8,16 @@ import datastructures.Queue;
 public class Q02 {
 
     private static double average(Queue<Integer> q) {
-        final Queue<Integer> temp = new Queue<>(q.getCapacity());
+        final Queue<Integer> temp = new Queue<>();
         double avg = 0;
 
         while (!q.isEmpty()) {
-            avg += q.peek();
-            temp.add(q.remove());
+            avg += q.getFirst();
+            temp.enqueue(q.dequeue());
         }
 
         while (!temp.isEmpty()) {
-            q.add(temp.remove());
+            q.enqueue(temp.dequeue());
         }
 
         return avg / q.size();
@@ -27,11 +27,11 @@ public class Q02 {
 
         Queue<Integer> q = new Queue<>();
 
-        q.add(1);
-        q.add(2);
-        q.add(3);
-        q.add(4);
-        q.add(5);
+        q.enqueue(1);
+        q.enqueue(2);
+        q.enqueue(3);
+        q.enqueue(4);
+        q.enqueue(5);
 
         System.out.println(q);
         System.out.println(average(q));

@@ -1,6 +1,9 @@
 package datastructures;
 
-public class Queue<E> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class Queue<E> implements Iterable<E> {
 
     private Node<E> head;
     private Node<E> tail;
@@ -9,28 +12,18 @@ public class Queue<E> {
     public Queue() {
     }
 
-    public Node<E> getHead() {
-        return head;
+    public E getFirst() {
+        if (isEmpty()) throw new NoSuchElementException("Fila vazia");
+        return head.data;
     }
 
-    public void setHead(Node<E> head) {
-        this.head = head;
-    }
-
-    public Node<E> getTail() {
-        return tail;
-    }
-
-    public void setTail(Node<E> tail) {
-        this.tail = tail;
+    public E getLast() {
+        if (isEmpty()) throw new NoSuchElementException("Fila vazia");
+        return tail.data;
     }
 
     public int size() {
         return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public boolean isEmpty() {
@@ -46,47 +39,102 @@ public class Queue<E> {
         StringBuilder result = new StringBuilder();
         Node<E> current = head;
         while (current != null) {
-            result.append(current.getData());
-            if (current.getNext() != null) {
+            result.append(current.data);
+            if (current.next != null) {
                 result.append(", ");
             }
-            current = current.getNext();
+            current = current.next;
         }
 
         return result.toString();
     }
 
-    public void add(E data) {
+    public void enqueue(E data) {
         final Node<E> newNode = new Node<>(data);
         if (isEmpty()) {
             head = newNode;
         } else {
-            tail.setNext(newNode);
+            tail.next = newNode;
+            newNode.prev = tail;
         }
         tail = newNode;
         size++;
     }
 
-    public E remove() {
+    public E dequeue() {
         if (isEmpty()) {
-            throw new IndexOutOfBoundsException("A fila está vazia");
+            throw new NoSuchElementException("Fila vazia");
         }
 
-        E removedData = head.getData();
-        head = head.getNext();
+        Node<E> removedNode = head;
+        head = head.next;
+        removedNode.next = null;
         size--;
 
         if (isEmpty()) {
             tail = null;
         }
 
-        return removedData;
+        return removedNode.data;
     }
 
-    public E peek() {
+    public E get(int index) {
         if (isEmpty()) {
-            throw new IndexOutOfBoundsException("Fila vazia");
+            throw new NoSuchElementException("Fila vazia");
+        } else if (index > size - 1 || index < 0) {
+            throw new IndexOutOfBoundsException("Índice " + index + " não encontrado");
+        } else if (index == 0) {
+            return head.data;
+        } else if (index == size - 1) {
+            return tail.data;
         }
-        return head.getData();
+
+        Node<E> current = head;
+        int count = 0;
+        while (current != null && count < index) {
+            current = current.next;
+            count++;
+        }
+
+        assert current != null;
+        return current.data;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new QueueIterator();
+    }
+
+    private class QueueIterator implements Iterator<E> {
+        private Node<E> current = head;
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("Fila vazia");
+            }
+            final E data = current.data;
+            current = current.next;
+            return data;
+        }
+    }
+
+    private static class Node<E> {
+        E data;
+        Node<E> next;
+        Node<E> prev;
+
+        public Node(E data) {
+            this.data = data;
+        }
+
+        @Override
+        public String toString() {
+            return data.toString();
+        }
     }
 }

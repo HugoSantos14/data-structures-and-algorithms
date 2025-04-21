@@ -1,6 +1,9 @@
 package datastructures;
 
-public class Stack<E> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class Stack<E> implements Iterable<E> {
 
     private Node<E> head;
     private int size;
@@ -14,20 +17,13 @@ public class Stack<E> {
         this.capacity = capacity;
     }
 
-    public Node<E> getHead() {
-        return head;
-    }
-
-    public void setHead(Node<E> head) {
-        this.head = head;
+    public E peek() {
+        if (isEmpty()) throw new NoSuchElementException("Pilha vazia");
+        return head.data;
     }
 
     public int size() {
         return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public int getCapacity() {
@@ -52,7 +48,7 @@ public class Stack<E> {
         final Stack<E> temp = new Stack<>(capacity);
         while (!isEmpty()) {
             result.append(peek());
-            if (head.getNext() != null) {
+            if (head.next != null) {
                 result.append(", ");
             }
             temp.push(pop());
@@ -67,57 +63,62 @@ public class Stack<E> {
 
     public void push(E data) {
         if (isFull()) {
-            throw new IndexOutOfBoundsException("A pilha está cheia");
+            throw new IllegalStateException("Pilha cheia");
         }
 
         final Node<E> newNode = new Node<>(data);
-        newNode.setNext(head);
+        newNode.next = head;
         head = newNode;
         size++;
     }
 
     public E pop() {
         if (isEmpty()) {
-            throw new IndexOutOfBoundsException("A pilha está vazia");
+            throw new NoSuchElementException("Pilha vazia");
         }
 
-        final Node<E> removedData = head;
-        head = head.getNext();
-        removedData.setNext(null);
+        final Node<E> removedNode = head;
+        head = head.next;
+        removedNode.next = null;
         size--;
-        return removedData.getData();
+        return removedNode.data;
     }
 
-    public E pop(E data) {
-        if (isEmpty()) {
-            throw new IndexOutOfBoundsException("A pilha está vazia");
+    @Override
+    public Iterator<E> iterator() {
+        return new StackIterator();
+    }
+
+    private class StackIterator implements Iterator<E> {
+        private Node<E> current;
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
         }
 
-        final Stack<E> temp = new Stack<>(capacity);
-        while (!isEmpty() && !head.getData().equals(data)) {
-            temp.push(pop());
-        }
-
-        if (isEmpty()) {
-            while (!temp.isEmpty()) {
-                push(temp.pop());
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("Pilha vazia");
             }
-            throw new IndexOutOfBoundsException("Elemento não encontrado na pilha");
+            final E data = current.data;
+            current = current.next;
+            return data;
         }
-
-        E removedData = pop();
-
-        while (!temp.isEmpty()) {
-            push(temp.pop());
-        }
-
-        return removedData;
     }
 
-    public E peek() {
-        if (isEmpty()) {
-            return null;
+    private static class Node<E> {
+        E data;
+        Node<E> next;
+
+        public Node(E data) {
+            this.data = data;
         }
-        return head.getData();
+
+        @Override
+        public String toString() {
+            return data.toString();
+        }
     }
 }

@@ -9,19 +9,19 @@ import datastructures.Queue;
 public class Q01 {
 
     private static Queue<Integer> oddNumbers(Queue<Integer> q) {
-        final Queue<Integer> oddNumbers = new Queue<>(q.getCapacity());
-        final Queue<Integer> temp = new Queue<>(q.getCapacity());
+        final Queue<Integer> oddNumbers = new Queue<>();
+        final Queue<Integer> temp = new Queue<>();
 
         while (!q.isEmpty()) {
-            int odd = q.peek();
-            if (q.peek() % 2 != 0) {
-                oddNumbers.add(odd);
+            int odd = q.getFirst();
+            if (odd % 2 != 0) {
+                oddNumbers.enqueue(odd);
             }
-            temp.add(q.remove());
+            temp.enqueue(q.dequeue());
         }
 
         while (!temp.isEmpty()) {
-            q.add(temp.remove());
+            q.enqueue(temp.dequeue());
         }
 
         return oddNumbers;
@@ -31,11 +31,11 @@ public class Q01 {
 
         Queue<Integer> q = new Queue<>();
 
-        q.add(1);
-        q.add(2);
-        q.add(3);
-        q.add(4);
-        q.add(5);
+        q.enqueue(1);
+        q.enqueue(2);
+        q.enqueue(3);
+        q.enqueue(4);
+        q.enqueue(5);
 
         System.out.println(oddNumbers(q));
         System.out.println(q);
