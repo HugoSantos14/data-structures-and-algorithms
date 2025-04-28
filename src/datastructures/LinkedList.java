@@ -3,6 +3,7 @@ package datastructures;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.function.Predicate;
 
 public class LinkedList<E> implements Iterable<E> {
 
@@ -48,9 +49,11 @@ public class LinkedList<E> implements Iterable<E> {
 
         StringBuilder result = new StringBuilder();
         Node<E> current = head;
-        int counter = 1;
         while (current != null) {
-            result.append(counter++).append(" - ").append(current);
+            result.append(current.data);
+            if (current.next != null) {
+                result.append(", ");
+            }
             current = current.next;
         }
 
@@ -170,6 +173,29 @@ public class LinkedList<E> implements Iterable<E> {
         current.prev = null;
         current.next = null;
         size--;
+    }
+
+    public void removeIf(Predicate<? super E> filter) {
+        if (filter == null) {
+            throw new NullPointerException("O predicado não pode ser nulo");
+        }
+
+        Node<E> current = head;
+        while (current != null) {
+            Node<E> next = current.next;
+            if (filter.test(current.data)) {
+                if (current == head) {
+                    removeFirst();
+                } else if (current == tail) {
+                    removeLast();
+                } else {
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                    size--;
+                }
+            }
+            current = next;
+        }
     }
 
     public E get(int index) {
